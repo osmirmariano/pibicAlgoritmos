@@ -11,5 +11,5 @@ class Kruskal {
         //Construtor
         Kruskal(){
 
-        }  
-}
+        };
+};

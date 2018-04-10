@@ -1,23 +1,6 @@
-// #include <iostream>
-// #include "AlgoritmoPrim.cpp"
-// #include "AlgoritmoKruskal.cpp"
-
-// using namespace std;
-
-// int main(){
-//     int op;
-//     Prim *prim = new Prim();
-//     Kruskal *kruskal = new Kruskal();
-
-//     do{
-
-//     }
-// }
-
 #include <iostream>
 #include <stdlib.h>
 #include "Grafo.cpp"
-
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -33,6 +16,7 @@ int main(int argc, char const *argv[]){
         cout << " 3 -- VISUALIZAR O GRAU DE UM VÉRTICE " << endl;
         cout << " 4 -- VISUALIZAR VIZINHANÇA DE UM VÉRTICE " << endl;
         cout << " 5 -- VISUALIZAR TODAS AS POSSIBILIDADE DE ARESTAS " << endl;
+        cout << " 6 -- PRIM " << endl;
         cout << " 0 -- SAIR " << endl;
         cout << "-------------------------------------------------------" << endl;
         cout << "OPÇÃO: ";
@@ -82,6 +66,14 @@ int main(int argc, char const *argv[]){
                 cout << "-------------------------------------------------------" << endl;
                 grafos->mostrarArestas();   
                 break;
+
+            case 6:
+                cout << endl << "-------------------------------------------------------" << endl;
+                cout << "\t PRIM" << endl;
+                cout << "-------------------------------------------------------" << endl;
+                grafos->algoritmoPrim();
+                break;
+
             case 0:
                 cout << "\t PROGRAMA ENCERRADO COM SUCESSO!\n \t VOLTE EM BREVE!" << endl;
                 break;

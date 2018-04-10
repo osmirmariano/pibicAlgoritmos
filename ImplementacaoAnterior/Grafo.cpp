@@ -11,7 +11,7 @@ class Grafos{
 	public:
         int vertice, linha, nVertice, mArestas;
         int matrix[0][0], **matriz, **matrizA;
-        int *vetorAresta1, *vetorAresta2;
+        int *vetorAresta1, *vetorAresta2, *vetorArmazena;
 
     public:
         //Construtor
@@ -24,6 +24,7 @@ class Grafos{
         	this->vertice = vertice; 
             this->matriz = matriz;
             this->matrizA = matrizA;
+            this->vetorArmazena = vetorArmazena;
             linha = 0;  
         };
 
@@ -31,7 +32,7 @@ class Grafos{
         int quantidade(){
             ifstream txtFile;
             char elemento;
-            txtFile.open("matriz.txt");
+            txtFile.open("grafoPonderado.txt");
 
             while (txtFile.get(elemento)){
                 if(elemento == ']')
@@ -87,6 +88,64 @@ class Grafos{
             cout <<"-------------------------------------------------------" << endl;
         };
 
+        void algoritmoPrim(){
+            int x, y, destino, origem = 0, primeiro, armazena;
+            double menorPeso;
+            vetorArmazena = (int *)malloc(nVertice * sizeof(int));
+            cout << "QUANTIDADE DE VERTICE: " << nVertice << endl;
+            for(x = 0; x < nVertice; x++){
+                vetorArmazena[x] = -1;
+            }
+
+            vetorArmazena[0] = origem;
+            while(1){
+                primeiro = 1;
+                for(x = 0; x < nVertice; x++){
+                    // if(vetorArmazena[x] != -1){
+                        for(y = 0; y < nVertice; y++){
+                            cout << "MATRIZ: " << matriz[x][y] << endl;
+                            if(matriz[x][y] != -1){
+                                armazena = vetorArmazena[x];
+                                if (matriz[x][y] < armazena){
+                                    armazena = matriz[x][y];
+                                }
+                                if (y == nVertice - 1){
+                                    vetorArmazena[x] = y;
+                                }
+                            }
+                        }
+                    // }
+                }
+                if(primeiro == 1)
+                    break;
+                vetorArmazena[destino] = origem;
+            }
+            for(x = 0; x < nVertice; x++){
+                cout << "VETOR ARMAZENA: " << vetorArmazena[x] << endl;
+            }
+        }
+        
+        /*-----------------------FUNÇÃO PARA MOSTRAR GRAU DO VÉRTICE----------------------*/
+        void grauVertice(int vertice){
+            int grau = 0;
+            if (vertice > nVertice){
+                cout << endl << "-------------------------------------------------------" << endl;
+                cout << "\t O VÉRTICE INFORMADO NÃO EXISTE" << endl;
+                cout << "-------------------------------------------------------" << endl;
+            }
+            else{
+                for (int x = 0; x < nVertice; x++){
+                    for (int y = 0; y < nVertice; y++){
+                        if(x == y && vertice == x+1)
+                            grau = matriz[x][y];
+                    }
+                }
+                cout << endl << "-------------------------------------------------------" << endl;
+                cout << " VÉRTICE " << vertice << " POSSUI GRAU " << grau << endl;
+                cout << "-------------------------------------------------------" << endl;
+            }
+            
+        };
         /*------------------------FUNÇÃO PARA MOSTRAR AS ARESTAS----------------------*/
         void mostrarArestas(){
             int mArestas = 0;
@@ -155,27 +214,7 @@ class Grafos{
             }    
         };
 
-        /*-----------------------FUNÇÃO PARA MOSTRAR GRAU DO VÉRTICE----------------------*/
-        void grauVertice(int vertice){
-            int grau = 0;
-            if (vertice > nVertice){
-                cout << endl << "-------------------------------------------------------" << endl;
-                cout << "\t O VÉRTICE INFORMADO NÃO EXISTE" << endl;
-                cout << "-------------------------------------------------------" << endl;
-            }
-            else{
-                for (int x = 0; x < nVertice; x++){
-                    for (int y = 0; y < nVertice; y++){
-                        if(x == y && vertice == x+1)
-                            grau = matriz[x][y];
-                    }
-                }
-                cout << endl << "-------------------------------------------------------" << endl;
-                cout << " VÉRTICE " << vertice << " POSSUI GRAU " << grau << endl;
-                cout << "-------------------------------------------------------" << endl;
-            }
-            
-        };
+        
 
         /*----------------------------FUNÇÃO PARA MOSTRAR VIZINHANÇA------------------------*/
         void vizinhancaVertice(int vertice){
